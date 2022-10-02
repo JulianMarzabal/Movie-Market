@@ -1,0 +1,6 @@
+framework module Pods_Movie_Market {
+  umbrella header "Pods-Movie Market-umbrella.h"
+
+  export *
+  module * { export * }
+}
