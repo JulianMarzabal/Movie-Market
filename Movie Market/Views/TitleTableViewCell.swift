@@ -80,6 +80,7 @@ class TitleTableViewCell: UITableViewCell {
         
         movieUIImageView.sd_setImage(with: url)
         titleLabel.text = model.titleName
+        titleLabel.numberOfLines = 0
     }
     
     
