@@ -17,15 +17,28 @@ class WelcomeViewController: UIViewController {
         return label
     }()
     
+    private let Titlelabel: UILabel = {
+        let label = UILabel()
+        label.text = "Movie Market"
+        label.font = .systemFont(ofSize: 32, weight: .bold)
+        label.translatesAutoresizingMaskIntoConstraints = false
+       
+        return label
+    }()
+    
     private let emailField: UITextField = {
         let email = UITextField()
         email.placeholder = "Introduce your email"
         email.textAlignment = .center
-        email.backgroundColor = .white
+        email.backgroundColor = UIColor(named: "defaultColor")
         email.layer.cornerRadius = 40 / 4
         email.layer.borderWidth = 1
-        email.layer.borderColor = UIColor.systemBackground.cgColor
+        email.layer.borderColor = UIColor(named: "changeColor")?.cgColor
         email.translatesAutoresizingMaskIntoConstraints = false
+        email.autocorrectionType = .no
+        email.autocapitalizationType = .none
+        email.returnKeyType = .done
+        
         
         
         return email
@@ -37,6 +50,7 @@ class WelcomeViewController: UIViewController {
         button.backgroundColor = .systemGray5
         button.setTitle("Sign in for free", for: .normal)
         button.setTitleColor(.blue , for: .normal)
+        button.backgroundColor = UIColor(named: "defaultColor")
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
@@ -45,11 +59,11 @@ class WelcomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = " Movie Market"
-        view.backgroundColor = .systemGray5
+        view.backgroundColor = UIColor(named: "defaultColor")
         view.addSubview(SignInButton)
         view.addSubview(emailField)
         view.addSubview(label)
+        view.addSubview(Titlelabel)
         setContraints()
         
         SignInButton.addTarget(self, action: #selector(didTapSignIn), for: .touchUpInside)
@@ -59,22 +73,25 @@ class WelcomeViewController: UIViewController {
     
     
     @objc func didTapSignIn() {
-        if emailField.text == "" {
-            print("Empty")
-            label.text = "Introduce an email"
+        if emailField.text!.contains("@") && emailField.text!.contains(".com") {
+            let vc = TabBarViewController()
+            vc.modalPresentationStyle = .fullScreen
+            present(vc, animated: false)
+           // vc.navigationItem.largeTitleDisplayMode = .always
+            //navigationController?.pushViewController(vc, animated: true)
+            
             
         } else {
-            let vc = TabBarViewController()
-            vc.navigationItem.largeTitleDisplayMode = .always
-            navigationController?.pushViewController(vc, animated: true)
-            
+            label.text = "Introduce an email"
+        
         }
         
         
     }
     private func setContraints() {
         NSLayoutConstraint.activate([
-            
+            Titlelabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            Titlelabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             emailField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             emailField.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             emailField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),

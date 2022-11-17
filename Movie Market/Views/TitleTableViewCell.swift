@@ -17,6 +17,7 @@ class TitleTableViewCell: UITableViewCell {
         let button = UIButton()
         let image = UIImage(systemName: "star.fill",withConfiguration: UIImage.SymbolConfiguration(pointSize: 30))
         button.setImage(image, for: .normal)
+        button.tintColor = .systemBlue
         button.addTarget(self, action: #selector(favouriteMovie), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
