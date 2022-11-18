@@ -23,7 +23,7 @@ class InfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Movie Details"
-        view.backgroundColor = .systemGray4
+        view.backgroundColor = UIColor(named: "defaultColor")
         view.addSubview(label)
         configureConstraints()
 
@@ -31,7 +31,7 @@ class InfoViewController: UIViewController {
     }
     private func configureConstraints() {
         NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: view.topAnchor,constant: 250),
+            label.topAnchor.constraint(equalTo: view.topAnchor,constant: 200),
         label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
         label.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 20),
         label.rightAnchor.constraint(equalTo: view.rightAnchor,constant: -20)

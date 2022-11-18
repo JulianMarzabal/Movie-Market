@@ -25,6 +25,7 @@ class TitleTableViewCell: UITableViewCell {
     }()
     private let titleLabel: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -57,7 +58,8 @@ class TitleTableViewCell: UITableViewCell {
         ]
         let titleLabelConstraints = [
             titleLabel.leadingAnchor.constraint(equalTo: movieUIImageView.trailingAnchor, constant: 20),
-            titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+            titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -60)
         ]
         let favouriteButtomConstraints = [
             favouriteButtom.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -20),
@@ -74,7 +76,12 @@ class TitleTableViewCell: UITableViewCell {
     @objc func favouriteMovie() {
         if favouriteButtom.tintColor == .systemBlue {
             favouriteButtom.tintColor = .systemYellow
-        }else{ favouriteButtom.tintColor = .systemBlue}}
+            
+        } else
+         {
+            favouriteButtom.tintColor = .systemBlue
+        }
+    }
     
     public func configure(with model: MovieViewModel) {
         guard let url = URL(string:"https://image.tmdb.org/t/p/w500/\(model.posterURL)") else {return}

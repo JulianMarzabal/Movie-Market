@@ -23,7 +23,7 @@ class FavouriteViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemGray6
+        view.backgroundColor = UIColor(named: "defaultColor")
         view.addSubview(label)
        
         setConstraints()

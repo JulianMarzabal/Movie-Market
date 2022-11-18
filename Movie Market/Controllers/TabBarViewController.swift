@@ -11,6 +11,9 @@ class TabBarViewController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tabBar.backgroundColor = .systemPink
+        self.tabBar.barTintColor = .systemPink
+        self.tabBar.unselectedItemTintColor = .systemGray
         
         let vc1 = HomeViewController()
         let vc2 = FavouriteViewController()

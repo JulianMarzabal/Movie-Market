@@ -24,8 +24,11 @@ class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .done, target: self, action: #selector(logout))
+        navigationItem.rightBarButtonItem?.tintColor = .systemBlue
+        
         title = "Top Movies"
-        view.backgroundColor = .systemGray6
+        view.backgroundColor = UIColor(named: "defaultColor")
         view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
@@ -38,6 +41,9 @@ class HomeViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
+    }
+    @objc func logout () {
+        UIApplication.shared.perform(#selector(NSXPCConnection.suspend))
     }
 
     private func getMovies(){
@@ -59,6 +65,8 @@ class HomeViewController: UIViewController {
 
 
 }
+
+
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TitleTableViewCell.identifier, for: indexPath) as? TitleTableViewCell else {

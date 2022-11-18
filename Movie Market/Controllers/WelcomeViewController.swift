@@ -25,6 +25,13 @@ class WelcomeViewController: UIViewController {
        
         return label
     }()
+    private let image: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = UIImage(named: "icon")
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
     
     private let emailField: UITextField = {
         let email = UITextField()
@@ -64,6 +71,7 @@ class WelcomeViewController: UIViewController {
         view.addSubview(emailField)
         view.addSubview(label)
         view.addSubview(Titlelabel)
+        view.addSubview(image)
         setContraints()
         
         SignInButton.addTarget(self, action: #selector(didTapSignIn), for: .touchUpInside)
@@ -77,7 +85,6 @@ class WelcomeViewController: UIViewController {
             let vc = TabBarViewController()
             vc.modalPresentationStyle = .fullScreen
             present(vc, animated: false)
-           // vc.navigationItem.largeTitleDisplayMode = .always
             //navigationController?.pushViewController(vc, animated: true)
             
             
@@ -99,7 +106,9 @@ class WelcomeViewController: UIViewController {
             SignInButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             SignInButton.bottomAnchor.constraint(equalTo: emailField.centerYAnchor, constant: 90),
             label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            label.centerYAnchor.constraint(equalTo: view.centerYAnchor,constant: 25)
+            label.centerYAnchor.constraint(equalTo: view.centerYAnchor,constant: 25),
+            image.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            image.centerYAnchor.constraint(equalTo: Titlelabel.centerYAnchor,constant: 130)
             
         ])
     }
