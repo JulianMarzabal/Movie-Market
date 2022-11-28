@@ -10,12 +10,19 @@ import SDWebImage
 
 
 class TitleTableViewCell: UITableViewCell {
+   
+    let defaults = UserDefaults.standard
     
+    struct keys {
+        static let favouriteMovie = "Favourite"
+    }
+
     static let identifier = "TitleTableViewCell"
     
-    private let favouriteButtom: UIButton = {
+    let favouriteButtom: UIButton = {
         let button = UIButton()
         let image = UIImage(systemName: "star.fill",withConfiguration: UIImage.SymbolConfiguration(pointSize: 30))
+        
         button.setImage(image, for: .normal)
         button.tintColor = .systemBlue
         button.addTarget(self, action: #selector(favouriteMovie), for: .touchUpInside)
@@ -23,12 +30,13 @@ class TitleTableViewCell: UITableViewCell {
         
         return button
     }()
-    private let titleLabel: UILabel = {
+    private var titleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
     
     
     private let movieUIImageView: UIImageView = {
@@ -45,8 +53,8 @@ class TitleTableViewCell: UITableViewCell {
         contentView.addSubview(titleLabel)
         contentView.addSubview(favouriteButtom)
         setConstraints()
-        
-        
+    
+                
     }
     
     private func setConstraints() {
@@ -73,16 +81,27 @@ class TitleTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate(favouriteButtomConstraints)
         
     }
+    
+    
     @objc func favouriteMovie() {
+
         if favouriteButtom.tintColor == .systemBlue {
             favouriteButtom.tintColor = .systemYellow
+            var title = titleLabel.text
+           
             
+            
+            print(title)
+            
+    
+            defaults.set(title, forKey: keys.favouriteMovie)
+            
+
         } else
          {
             favouriteButtom.tintColor = .systemBlue
         }
     }
-    
     public func configure(with model: MovieViewModel) {
         guard let url = URL(string:"https://image.tmdb.org/t/p/w500/\(model.posterURL)") else {return}
         
@@ -90,8 +109,7 @@ class TitleTableViewCell: UITableViewCell {
         titleLabel.text = model.titleName
         titleLabel.numberOfLines = 0
     }
-    
-    
+        
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

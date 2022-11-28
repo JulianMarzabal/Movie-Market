@@ -23,6 +23,8 @@
 		1E570E5628E0611E00DCA6A4 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E570E5528E0611E00DCA6A4 /* WelcomeViewController.swift */; };
 		1E570E5828E0656500DCA6A4 /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E570E5728E0656500DCA6A4 /* APICaller.swift */; };
 		1E570E5A28E065CE00DCA6A4 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E570E5928E065CE00DCA6A4 /* Manager.swift */; };
+		1E809C45292A5ED0004C2E4F /* FavouriteMovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E809C44292A5ED0004C2E4F /* FavouriteMovieTableViewCell.swift */; };
+		1E809C48292ACBA6004C2E4F /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1E809C46292ACBA6004C2E4F /* CoreData.xcdatamodeld */; };
 		58E350CBB77B8900E0376F0F /* Pods_Movie_Market.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C06F35AF981D464E96E36952 /* Pods_Movie_Market.framework */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +45,8 @@
 		1E570E5528E0611E00DCA6A4 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		1E570E5728E0656500DCA6A4 /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
 		1E570E5928E065CE00DCA6A4 /* Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
+		1E809C44292A5ED0004C2E4F /* FavouriteMovieTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteMovieTableViewCell.swift; sourceTree = "<group>"; };
+		1E809C47292ACBA6004C2E4F /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
 		4698DF5D4A8377EB1B792E7C /* Pods-Movie Market.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Movie Market.release.xcconfig"; path = "Target Support Files/Pods-Movie Market/Pods-Movie Market.release.xcconfig"; sourceTree = "<group>"; };
 		C06F35AF981D464E96E36952 /* Pods_Movie_Market.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Movie_Market.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D51DAEA37452FD22FEA736B6 /* Pods-Movie Market.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Movie Market.debug.xcconfig"; path = "Target Support Files/Pods-Movie Market/Pods-Movie Market.debug.xcconfig"; sourceTree = "<group>"; };
@@ -90,6 +94,7 @@
 		1E570E2A28E05A5D00DCA6A4 = {
 			isa = PBXGroup;
 			children = (
+				1E809C46292ACBA6004C2E4F /* CoreData.xcdatamodeld */,
 				1E570E3528E05A5D00DCA6A4 /* Movie Market */,
 				1E570E3428E05A5D00DCA6A4 /* Products */,
 				086CC29977387F1949000AF6 /* Pods */,
@@ -124,6 +129,7 @@
 			children = (
 				1E570E4128E05A5E00DCA6A4 /* LaunchScreen.storyboard */,
 				1E4400AA28E3B2D00063B095 /* TitleTableViewCell.swift */,
+				1E809C44292A5ED0004C2E4F /* FavouriteMovieTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -290,9 +296,11 @@
 			files = (
 				1E570E5228E060B900DCA6A4 /* TabBarViewController.swift in Sources */,
 				1E570E3B28E05A5D00DCA6A4 /* HomeViewController.swift in Sources */,
+				1E809C45292A5ED0004C2E4F /* FavouriteMovieTableViewCell.swift in Sources */,
 				1E44725F28E28CD70080CE21 /* MovieModel.swift in Sources */,
 				1E4400AB28E3B2D00063B095 /* TitleTableViewCell.swift in Sources */,
 				1E570E3728E05A5D00DCA6A4 /* AppDelegate.swift in Sources */,
+				1E809C48292ACBA6004C2E4F /* CoreData.xcdatamodeld in Sources */,
 				1E570E5A28E065CE00DCA6A4 /* Manager.swift in Sources */,
 				1E44725C28E285500080CE21 /* InfoViewController.swift in Sources */,
 				1E570E5828E0656500DCA6A4 /* APICaller.swift in Sources */,
@@ -533,6 +541,19 @@
 			productName = SDWebImageMapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		1E809C46292ACBA6004C2E4F /* CoreData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1E809C47292ACBA6004C2E4F /* CoreData.xcdatamodel */,
+			);
+			currentVersion = 1E809C47292ACBA6004C2E4F /* CoreData.xcdatamodel */;
+			path = CoreData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 1E570E2B28E05A5D00DCA6A4 /* Project object */;
 }

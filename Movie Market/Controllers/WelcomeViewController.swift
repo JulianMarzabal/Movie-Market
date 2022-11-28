@@ -38,7 +38,7 @@ class WelcomeViewController: UIViewController {
         email.placeholder = "Introduce your email"
         email.textAlignment = .center
         email.backgroundColor = UIColor(named: "defaultColor")
-        email.layer.cornerRadius = 40 / 4
+        email.layer.cornerRadius = 12
         email.layer.borderWidth = 1
         email.layer.borderColor = UIColor(named: "changeColor")?.cgColor
         email.translatesAutoresizingMaskIntoConstraints = false
