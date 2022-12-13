@@ -8,15 +8,13 @@
 import UIKit
 import SDWebImage
 
-
+protocol TitleTableViewCellDelegate: AnyObject {
+    func onSelect(model: MovieViewModel, isSelectected: Bool)
+}
 class TitleTableViewCell: UITableViewCell {
    
-    let defaults = UserDefaults.standard
+    weak var delegate: TitleTableViewCellDelegate?
     
-    struct keys {
-        static let favouriteMovie = "Favourite"
-    }
-
     static let identifier = "TitleTableViewCell"
     
     let favouriteButtom: UIButton = {
@@ -85,25 +83,21 @@ class TitleTableViewCell: UITableViewCell {
     
     @objc func favouriteMovie() {
 
-        if favouriteButtom.tintColor == .systemBlue {
-            favouriteButtom.tintColor = .systemYellow
-            var title = titleLabel.text
-           
-            
-            
-            print(title)
-            
-    
-            defaults.set(title, forKey: keys.favouriteMovie)
-            
-
-        } else
-         {
-            favouriteButtom.tintColor = .systemBlue
-        }
+        guard let viewmodel = viewmodel else {return}
+        favouriteButtom.tintColor = !isMovieSelected ? .systemYellow : .systemBlue
+        isMovieSelected = !isMovieSelected
+        self.delegate?.onSelect(model: viewmodel, isSelectected: isMovieSelected)
+        
     }
+    var viewmodel: MovieViewModel?
+    var isMovieSelected: Bool = false
     public func configure(with model: MovieViewModel) {
+        self.viewmodel = model
         guard let url = URL(string:"https://image.tmdb.org/t/p/w500/\(model.posterURL)") else {return}
+        isMovieSelected =  model.isSelectedMovie
+        favouriteButtom.tintColor = !isMovieSelected ? .systemYellow : .systemBlue
+        
+       
         
         movieUIImageView.sd_setImage(with: url)
         titleLabel.text = model.titleName

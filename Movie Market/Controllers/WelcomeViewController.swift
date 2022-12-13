@@ -7,7 +7,21 @@
 
 import UIKit
 
+protocol WelcomeViewDelegate: AnyObject {
+    func onSuccess()
+        
+    
+}
+
 class WelcomeViewController: UIViewController {
+    weak var delegate: WelcomeViewDelegate?
+    init(){
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     private let label: UILabel = {
         let label = UILabel()
@@ -74,24 +88,41 @@ class WelcomeViewController: UIViewController {
         view.addSubview(image)
         setContraints()
         
+        
         SignInButton.addTarget(self, action: #selector(didTapSignIn), for: .touchUpInside)
 
        
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationItem.setHidesBackButton(true, animated: true)
+    }
     
     @objc func didTapSignIn() {
-        if emailField.text!.contains("@") && emailField.text!.contains(".com") {
-            let vc = TabBarViewController()
-            vc.modalPresentationStyle = .fullScreen
-            present(vc, animated: false)
-            //navigationController?.pushViewController(vc, animated: true)
-            
-            
-        } else {
-            label.text = "Introduce an email"
         
+        guard let  email = emailField.text else {return}
+        //isValidEmail(email!)
+        if isValidEmail(email) == true {
+            delegate?.onSuccess()
         }
+        else {
+            label.text = "Introduce an email"
+        }
+        
+        //if emailField.text!.contains("@") && emailField.text!.contains(".com") {
+            
+            
+            //let vc = TabBarViewController()
+            //vc.modalPresentationStyle = .fullScreen
+            //present(vc, animated: false)
+            //navigationController?.pushViewController(vc, animated: true)
+            //coordinator?.presentHomeVC()
+            
+            
+        //} else {
+            //label.text = "Introduce an email"
+        
+        //}
         
         
     }
@@ -111,6 +142,13 @@ class WelcomeViewController: UIViewController {
             image.centerYAnchor.constraint(equalTo: Titlelabel.centerYAnchor,constant: 130)
             
         ])
+    }
+    
+    func isValidEmail(_ email: String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+
+        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailPred.evaluate(with: email)
     }
 
   

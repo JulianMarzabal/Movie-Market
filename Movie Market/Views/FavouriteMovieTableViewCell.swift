@@ -7,9 +7,15 @@
 
 import UIKit
 
+struct FavouriteMovieTableViewModel {
+    var title: String
+}
+
 class FavouriteMovieTableViewCell: UITableViewCell {
-    let titleTable = TitleTableViewCell()
+    var favouriteMovies = MoviesStorage.shared.movies
+
     static let identifier = "FavouriteMovieTableViewCell"
+    private var title: String?
 
      var favouriteLabel: UILabel = {
         let label = UILabel()
@@ -19,11 +25,17 @@ class FavouriteMovieTableViewCell: UITableViewCell {
         return label
     }()
     
+    func configure(data: FavouriteMovieTableViewModel){
+        favouriteLabel.text = data.title
+    }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(favouriteLabel)
         setConstrainsts()
-        setFavouriteMovie()
+   
+       
       
     
     }
@@ -36,15 +48,7 @@ class FavouriteMovieTableViewCell: UITableViewCell {
     }
  
     func setFavouriteMovie() {
-        
-        
-        var name = titleTable.defaults.value(forKey:"Favourite") as? String ?? "Unknown"
-        //let name = titleTable.defaults.object(forKey: "Favourite")
-        print(name)
-        
-        favouriteLabel.text = name
-        
-        
+      
     }
     
    

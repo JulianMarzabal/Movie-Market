@@ -8,10 +8,23 @@
 import UIKit
 import Alamofire
 
+protocol HomeViewDelegate: AnyObject {
+    func onView(movie: Movie)
+}
+
 class HomeViewController: UIViewController {
-    
+    weak var delegate: HomeViewDelegate?
     
     private var movies: [Movie] = [Movie]()
+    private var moviesSelected: [Movie] = MoviesStorage.shared.movies {
+        didSet{
+            MoviesStorage.shared.movies = moviesSelected
+            moviesSelected.forEach{
+                print("this is \($0.original_title)")
+            }
+        }
+    }
+    
     
     
     
@@ -36,6 +49,12 @@ class HomeViewController: UIViewController {
         
             
         }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationItem.setHidesBackButton(true, animated: true)
+        moviesSelected = MoviesStorage.shared.movies
+        tableView.reloadData()
+    }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -72,7 +91,16 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         let titleName = movies[indexPath.row]
-        cell.configure(with: MovieViewModel(titleName: (titleName.original_title ?? titleName.original_name) ?? "Unkown Movie", posterURL: titleName.poster_path ?? ""))
+        var isSelected = false
+        
+        if let movie =  moviesSelected.first(where: { selectedmovie in
+            selectedmovie.id == titleName.id
+        }) {
+            isSelected = true
+        }
+        cell.configure(with: MovieViewModel(id: titleName.id, titleName: (titleName.original_title ?? titleName.original_name) ?? "Unkown Movie", posterURL: titleName.poster_path ?? "", isSelectedMovie: isSelected))
+        cell.delegate = self
+        
         return cell
 
     }
@@ -82,22 +110,55 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 200
     }
+   
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let InfoVC = InfoViewController()
-        navigationController?.pushViewController(InfoVC, animated: false)
-        let info = movies[indexPath.row]
-        print(info)
-        InfoVC.title = movies[indexPath.row].original_name ?? movies[indexPath.row].original_title
-        guard let  releaseDate = movies[indexPath.row].release_date else {return}
-        guard let overview = movies[indexPath.row].overview else {return}
-        let title = movies[indexPath.row].original_title ?? movies[indexPath.row].original_name ?? "Unkown"
+        //let InfoVC = InfoViewController()
+        //navigationController?.pushViewController(InfoVC, animated: false)
+        self.delegate?.onView(movie: movies[indexPath.row])
+        
+        
+        //InfoVC.title = movies[indexPath.row].original_name ?? movies[indexPath.row].original_title
+        //guard let  releaseDate = movies[indexPath.row].release_date else {return}
+        //guard let overview = movies[indexPath.row].overview else {return}
+        //let title = movies[indexPath.row].original_title ?? movies[indexPath.row].original_name ?? "Unkown"
                                                                    
-        InfoVC.label.text =
+        //InfoVC.label.text =
         
         
         
-        "Overview: \(title)\n \n \(overview) \n \n Release date: \(releaseDate) \n \n \n \n See you soon in the great Movie Market"
+        //"Overview: \(title)\n \n \(overview) \n \n Release date: \(releaseDate) \n \n \n \n See you soon in the great Movie Market"
         
+    }
+    
+    
+    
+    
+}
+extension HomeViewController: TitleTableViewCellDelegate {
+    func onSelect(model: MovieViewModel, isSelectected: Bool) {
+        isSelectected ? movieSelection(model: model) : removeMovieSelection(model: model)
+        
+    }
+    
+    func movieSelection(model: MovieViewModel){
+        if moviesSelected.first(where: {
+            $0.id == model.id
+        }) == nil {
+            if let movie = movies.first(where: {
+                $0.id == model.id
+            }) {
+                moviesSelected.append(movie)
+            }
+        }
+            
+        
+    }
+    func removeMovieSelection(model: MovieViewModel){
+        if let index = moviesSelected.firstIndex(where: {
+            $0.id == model.id
+        }) {
+            moviesSelected.remove(at: index)
+        }
     }
     
     

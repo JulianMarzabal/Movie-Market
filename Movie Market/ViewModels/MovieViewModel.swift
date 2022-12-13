@@ -8,6 +8,8 @@
 import Foundation
 
 struct MovieViewModel {
+    let id: Int
     let titleName: String
     let posterURL: String
+    let isSelectedMovie: Bool
 }

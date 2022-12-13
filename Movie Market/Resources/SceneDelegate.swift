@@ -10,6 +10,7 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    var coordinator: MainCoordinator?
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -17,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: windowScene)
-        if Manager.shared.isSignedIn {
+        /*if Manager.shared.isSignedIn {
             window.rootViewController  = TabBarViewController()
         } else{
             let navVC = UINavigationController(rootViewController: WelcomeViewController())
@@ -25,11 +26,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             navVC.viewControllers.first?.navigationItem.largeTitleDisplayMode = .always
             window.rootViewController = navVC
             
-        }
-        
+        */
+        let viewController = UIViewController()
+        let navController = UINavigationController(rootViewController: viewController)
+        let coordinator = MainCoordinator(navigationController: navController)
+        window.rootViewController = navController
         window.makeKeyAndVisible()
-        
+        self.coordinator = coordinator
         self.window = window
+        coordinator.start()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

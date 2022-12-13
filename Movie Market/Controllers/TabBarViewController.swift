@@ -8,7 +8,8 @@
 import UIKit
 
 class TabBarViewController: UITabBarController {
-
+    weak var homevcDelegate: HomeViewDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBar.backgroundColor = .systemPink
@@ -17,6 +18,7 @@ class TabBarViewController: UITabBarController {
         
         let vc1 = HomeViewController()
         let vc2 = FavouriteViewController()
+        vc1.delegate = self
         vc1.navigationItem.largeTitleDisplayMode = .always
         vc2.navigationItem.largeTitleDisplayMode = .always
         
@@ -30,10 +32,18 @@ class TabBarViewController: UITabBarController {
         nav2.navigationBar.prefersLargeTitles = true
         
         setViewControllers([nav1,nav2], animated: false)
+      
         
 
     }
     
 
 
+}
+extension TabBarViewController: HomeViewDelegate {
+    func onView(movie: Movie) {
+        self.homevcDelegate?.onView(movie: movie)
+    }
+    
+    
 }
