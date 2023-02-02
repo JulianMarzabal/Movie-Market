@@ -14,42 +14,57 @@ class MainCoordinator {
     }
     
     func start() {
-
-        let vc = WelcomeViewController()
-        vc.delegate = self
+        let vm = WelcomeViewModel()
+        vm.delegate = self
+        let vc = WelcomeViewController(viewModel: vm)
+        
+        
         navigationController.pushViewController(vc, animated: true)
+    }
+    func removeLastController() {
+        navigationController.popViewController(animated: true)
     }
     
     func presentHomeVC() {
         let homeVC = TabBarViewController()
         
-        
         homeVC.homevcDelegate = self
         homeVC.modalPresentationStyle = .fullScreen
         
         
-       
-        navigationController.pushViewController(homeVC, animated: true)
-       
+            navigationController.pushViewController(homeVC, animated: true)
+    
     }
+  
+    
   
     
 }
 
 extension MainCoordinator: HomeViewDelegate {
+    func onLogOut() {
+        
+        removeLastController()
+    }
+    
+  
     func onView(movie: Movie) {
-        let vc = InfoViewController(movie: movie)
+    
+        let vc = InfoViewController(viewModel: .init(movie: movie))
+    
         navigationController.pushViewController(vc, animated: true)
         
     }
-    
-    
+
 }
 
 extension MainCoordinator: WelcomeViewDelegate {
     func onSuccess() {
+      
         presentHomeVC()
     }
     
     
 }
+
+

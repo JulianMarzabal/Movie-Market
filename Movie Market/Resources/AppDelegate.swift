@@ -7,8 +7,10 @@
 
 import UIKit
 
+
+
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate{
     var window: UIWindow?
     var coordinator: MainCoordinator?
 
@@ -36,9 +38,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.coordinator = coordinator
         self.window = window
         coordinator.start()
+   
+        
+        
         return true
     }
-
+   
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {

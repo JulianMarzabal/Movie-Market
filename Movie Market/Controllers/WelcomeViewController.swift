@@ -7,15 +7,19 @@
 
 import UIKit
 
-protocol WelcomeViewDelegate: AnyObject {
+
+/*protocol WelcomeViewDelegate: AnyObject {
     func onSuccess()
         
     
 }
+ */
 
 class WelcomeViewController: UIViewController {
-    weak var delegate: WelcomeViewDelegate?
-    init(){
+    var viewModel: WelcomeViewModel
+    //weak var delegate: WelcomeViewDelegate?
+    init(viewModel: WelcomeViewModel){
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -47,12 +51,14 @@ class WelcomeViewController: UIViewController {
         return imageView
     }()
     
-    private let emailField: UITextField = {
+    private(set) var emailField: UITextField = {
         let email = UITextField()
         email.placeholder = "Introduce your email"
-        email.textAlignment = .center
+        email.textAlignment = .left
+        email.leftViewMode = .always
+        email.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
         email.backgroundColor = UIColor(named: "defaultColor")
-        email.layer.cornerRadius = 12
+        email.layer.cornerRadius = 7
         email.layer.borderWidth = 1
         email.layer.borderColor = UIColor(named: "changeColor")?.cgColor
         email.translatesAutoresizingMaskIntoConstraints = false
@@ -96,36 +102,28 @@ class WelcomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationItem.setHidesBackButton(true, animated: true)
+        
     }
     
     @objc func didTapSignIn() {
         
         guard let  email = emailField.text else {return}
-        //isValidEmail(email!)
-        if isValidEmail(email) == true {
-            delegate?.onSuccess()
+       
+        if viewModel.isValidEmail(email){
+            //delegate?.onSuccess()
+            //viewModel.delegate?.onSuccess()
+            viewModel.onSuccessEmail()
+            print("ku")
         }
         else {
             label.text = "Introduce an email"
         }
         
-        //if emailField.text!.contains("@") && emailField.text!.contains(".com") {
-            
-            
-            //let vc = TabBarViewController()
-            //vc.modalPresentationStyle = .fullScreen
-            //present(vc, animated: false)
-            //navigationController?.pushViewController(vc, animated: true)
-            //coordinator?.presentHomeVC()
-            
-            
-        //} else {
-            //label.text = "Introduce an email"
-        
-        //}
-        
         
     }
+    
+    
+   
     private func setContraints() {
         NSLayoutConstraint.activate([
             Titlelabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
@@ -139,18 +137,13 @@ class WelcomeViewController: UIViewController {
             label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             label.centerYAnchor.constraint(equalTo: view.centerYAnchor,constant: 25),
             image.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            image.centerYAnchor.constraint(equalTo: Titlelabel.centerYAnchor,constant: 130)
+            image.centerYAnchor.constraint(equalTo: Titlelabel.centerYAnchor,constant: 170)
             
         ])
     }
     
-    func isValidEmail(_ email: String) -> Bool {
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-
-        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        return emailPred.evaluate(with: email)
-    }
-
+    
   
 
 }
+

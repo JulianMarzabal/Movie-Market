@@ -8,12 +8,18 @@
 import Foundation
 import Alamofire
 
-struct Constants {
+fileprivate struct Constants {
     static let APIKey = "c876ca87c400f39cd8a257467c590fa8"
     static let BaseUrl = "https://api.themoviedb.org"
 }
 
-class APICaller {
+protocol APIProtocol:AnyObject {
+    func getMovies(completion: @escaping (Result<[Movie],Error>) -> Void)
+    
+}
+
+class APICaller: APIProtocol {
+    
     static let shared = APICaller()
     
     func getMovies(completion: @escaping (Result<[Movie],Error>) -> Void) {

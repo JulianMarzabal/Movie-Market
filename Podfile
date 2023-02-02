@@ -8,5 +8,6 @@ target 'Movie Market' do
   # Pods for Movie Market
    pod"Alamofire"
    pod"SDWebImage"
+ 
 
 end

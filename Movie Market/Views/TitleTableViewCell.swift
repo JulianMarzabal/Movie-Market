@@ -95,7 +95,7 @@ class TitleTableViewCell: UITableViewCell {
         self.viewmodel = model
         guard let url = URL(string:"https://image.tmdb.org/t/p/w500/\(model.posterURL)") else {return}
         isMovieSelected =  model.isSelectedMovie
-        favouriteButtom.tintColor = !isMovieSelected ? .systemYellow : .systemBlue
+        favouriteButtom.tintColor = isMovieSelected ? .systemYellow : .systemBlue
         
        
         

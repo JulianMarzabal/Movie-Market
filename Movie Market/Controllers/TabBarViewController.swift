@@ -15,10 +15,13 @@ class TabBarViewController: UITabBarController {
         self.tabBar.backgroundColor = .systemPink
         self.tabBar.barTintColor = .systemPink
         self.tabBar.unselectedItemTintColor = .systemGray
+        let homeViewModel = HomeViewmodel()
+        homeViewModel.delegate = self
         
-        let vc1 = HomeViewController()
+        
+        let vc1 = HomeViewController(viewModel: homeViewModel)
         let vc2 = FavouriteViewController()
-        vc1.delegate = self
+       
         vc1.navigationItem.largeTitleDisplayMode = .always
         vc2.navigationItem.largeTitleDisplayMode = .always
         
@@ -36,11 +39,27 @@ class TabBarViewController: UITabBarController {
         
 
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationItem.setHidesBackButton(true, animated: true)
+       
+        
+        
+        
+    }
     
 
 
 }
 extension TabBarViewController: HomeViewDelegate {
+    func onLogOut() {
+        self.homevcDelegate?.onLogOut()
+    }
+    
+  
+    
+  
+    
     func onView(movie: Movie) {
         self.homevcDelegate?.onView(movie: movie)
     }
