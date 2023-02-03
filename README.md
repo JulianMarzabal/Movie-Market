@@ -1,4 +1,5 @@
 <h1 align="center"> Movie Market </h1>
+Movie Market is a simple app that shows the movies of the moment, in which the user can read the overview and save it in the favorites section. 
 
 For this project use:
 
